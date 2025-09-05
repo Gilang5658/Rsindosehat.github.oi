@@ -221,7 +221,7 @@ const doctor=document.getElementById('doctor-select').value;
 const date=document.getElementById('date').value;
 const note=document.getElementById('note').value;
 const message=`Halo, saya ingin membuat janji temu.%0ANama: ${name}%0ANo.Telp: ${phone}%0ADokter: ${doctor}%0ATanggal: ${date}%0AKeluhan: ${note}`;
-window.open(`https://wa.me/628123456789?text=${message}`,'_blank');});
+window.open(`https://wa.me/6283816360565?text=${encodeURIComponent(message)}`,'_blank');});
 
 // Reveal Sections
 const sections=document.querySelectorAll('section');
@@ -243,4 +243,4 @@ function closeModal(){document.getElementById('serviceModal').style.display='non
 window.addEventListener('click',function(e){if(e.target==document.getElementById('serviceModal')){closeModal();}});
 </script>
 </body>
-</html>
+                                                                                                                       </html>
