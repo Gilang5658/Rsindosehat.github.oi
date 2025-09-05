@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RS Sehat Selalu - Profesional</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+body{background:#f7f9fa;color:#333;line-height:1.6;scroll-behavior:smooth;}
+a{text-decoration:none;color:inherit;}
+nav{position:sticky;top:0;z-index:1000;background:#005f73;color:#fff;padding:15px 20px;display:flex;justify-content:center;align-items:center;box-shadow:0 3px 8px rgba(0,0,0,0.2);}
+nav h1{font-size:1.8rem;font-weight:700;}
+.hero{position:relative;height:90vh;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;}
+.hero-slide{position:absolute;width:100%;height:100%;background-size:cover;background-position:center;opacity:0;transition:opacity 1s ease-in-out;}
+.hero-slide.active{opacity:1;}
+.hero::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);}
+.hero-content{position:relative;z-index:2;}
+.hero-content h2{font-size:3rem;margin-bottom:15px;text-shadow:2px 2px 8px rgba(0,0,0,0.5);}
+.hero-content p{font-size:1.2rem;margin-bottom:25px;text-shadow:1px 1px 6px rgba(0,0,0,0.5);}
+.btn{background:#ee9b00;color:#fff;padding:15px 30px;border:none;border-radius:8px;cursor:pointer;font-weight:700;transition:all 0.3s;}
+.btn:hover{transform:scale(1.05);background:#ffb347;}
+.arrow{position:absolute;top:50%;transform:translateY(-50%);font-size:2.5rem;color:#fff;cursor:pointer;padding:10px;background:rgba(0,0,0,0.3);border-radius:50%;transition:all 0.3s;}
+.arrow:hover{background:rgba(0,0,0,0.5);}
+.arrow-left{left:20px;}
+.arrow-right{right:20px;}
+section{padding:70px 20px;opacity:0;transform:translateY(50px);transition:all 1s ease-out;}
+section.visible{opacity:1;transform:translateY(0);}
+.container{max-width:1200px;margin:0 auto;}
+h2{text-align:center;color:#005f73;margin-bottom:50px;font-weight:700;}
+.services{display:flex;flex-wrap:wrap;gap:25px;justify-content:center;}
+.service{background:#e0fbfc;flex:1 1 250px;padding:25px;border-radius:12px;text-align:center;cursor:pointer;transition:all 0.4s;}
+.service:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 15px 25px rgba(0,0,0,0.2);}
+.service i{font-size:2.5rem;color:#0a9396;margin-bottom:10px;display:block;}
+.doctors{display:flex;flex-wrap:wrap;gap:25px;justify-content:center;}
+.doctor{background:#e0fbfc;padding:25px;border-radius:12px;text-align:center;flex:1 1 250px;transition:all 0.4s;cursor:pointer;}
+.doctor:hover{transform:translateY(-10px) scale(1.05);box-shadow:0 15px 25px rgba(0,0,0,0.2);}
+.doctor img{width:120px;height:120px;border-radius:50%;margin-bottom:12px;}
+.carousel{display:flex;overflow:hidden;gap:20px;scroll-behavior:smooth;position:relative;}
+.carousel-item{flex-shrink:0;min-width:300px;background:#e0fbfc;padding:25px;border-radius:12px;transition:transform 0.3s;}
+.carousel-item:hover{transform:scale(1.05);}
+.carousel-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem;background:rgba(0,0,0,0.3);color:#fff;padding:8px 12px;border-radius:50%;cursor:pointer;transition:all 0.3s;}
+.carousel-nav:hover{background:rgba(0,0,0,0.5);}
+.prev{left:0;}
+.next{right:0;}
+form{max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:15px;}
+input,select,textarea{padding:15px;border:1px solid #ccc;border-radius:8px;font-size:1rem;transition:all 0.3s;}
+input:focus,select:focus,textarea:focus{border-color:#0a9396;outline:none;background:#f0f8ff;}
+#serviceModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;}
+#serviceModal .modal-content{background:#fff;padding:25px;border-radius:12px;max-width:500px;position:relative;}
+#serviceModal .close{position:absolute;top:10px;right:15px;cursor:pointer;font-size:1.5rem;font-weight:bold;}
+footer{background:#005f73;color:#fff;text-align:center;padding:25px;font-weight:500;}
+.bottom-nav{position:fixed;bottom:0;width:100%;background:#0a9396;display:flex;justify-content:space-around;padding:12px 0;z-index:999;}
+.bottom-nav a{color:#fff;flex:1;text-align:center;transition:color 0.3s;}
+.bottom-nav a.active{color:#ffdd00;font-weight:700;}
+#backToTop{position:fixed;bottom:80px;right:20px;background:#ee9b00;color:#fff;padding:12px 18px;border-radius:50%;font-size:1.5rem;cursor:pointer;display:none;z-index:1000;transition:all 0.3s;}
+#backToTop:hover{background:#ffb347;transform:scale(1.1);}
+@media(max-width:768px){.services,.doctors{flex-direction:column;align-items:center;}.carousel{overflow-x:scroll;}.carousel::-webkit-scrollbar{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav><h1>RS Sehat Selalu</h1></nav>
+
+<!-- Hero Slider -->
+<section class="hero" id="hero">
+<div class="hero-slide active" style="background-image:url('https://via.placeholder.com/1920x1080?text=RS+Slide+1');"></div>
+<div class="hero-slide" style="background-image:url('https://via.placeholder.com/1920x1080?text=RS+Slide+2');"></div>
+<div class="hero-slide" style="background-image:url('https://via.placeholder.com/1920x1080?text=RS+Slide+3');"></div>
+<div class="hero-content">
+<h2>Selamat Datang di RS Sehat Selalu</h2>
+<p>Layanan kesehatan profesional & terpercaya</p>
+<button class="btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'});">Buat Janji</button>
+</div>
+<div class="arrow arrow-left" onclick="prevSlide()">&#10094;</div>
+<div class="arrow arrow-right" onclick="nextSlide()">&#10095;</div>
+</section>
+
+<!-- Services -->
+<section id="services">
+<div class="container">
+<h2>Layanan Kami</h2>
+<div class="services">
+<div class="service" onclick="openModal('Poli Umum','Poli umum melayani konsultasi, pemeriksaan rutin, serta diagnosa awal untuk semua pasien.')">
+<i class="fa-solid fa-user-doctor"></i><h3>Poli Umum</h3></div>
+<div class="service" onclick="openModal('Poli Gigi','Poli Gigi menyediakan pemeriksaan dan perawatan gigi lengkap untuk semua usia.')">
+<i class="fa-solid fa-tooth"></i><h3>Poli Gigi</h3></div>
+<div class="service" onclick="openModal('Poli Anak','Poli Anak melayani konsultasi dan perawatan kesehatan anak-anak.')">
+<i class="fa-solid fa-baby"></i><h3>Poli Anak</h3></div>
+<div class="service" onclick="openModal('Medical Check-Up','Medical Check-Up menyediakan pemeriksaan kesehatan lengkap rutin.')">
+<i class="fa-solid fa-stethoscope"></i><h3>Medical Check-Up</h3></div>
+</div>
+</div>
+</section>
+
+<!-- Doctors -->
+<section id="doctors">
+<div class="container">
+<h2>Dokter Spesialis</h2>
+<label for="filter">Filter Spesialis:</label>
+<select id="filter" onchange="filterDoctors()">
+<option value="all">Semua</option>
+<option value="umum">Dokter Umum</option>
+<option value="anak">Dokter Anak</option>
+</select>
+<div class="doctors" id="doctor-list">
+<div class="doctor" data-spesialis="umum" onclick="openModal('Dr. Budi Santoso','Dokter Umum berpengalaman 10 tahun, melayani konsultasi dan pemeriksaan rutin.')">
+<img src="https://via.placeholder.com/120"><h3>Dr. Budi Santoso</h3><p>Dokter Umum</p></div>
+<div class="doctor" data-spesialis="anak" onclick="openModal('Dr. Siti Aminah','Dokter Anak spesialis merawat anak-anak usia 0-12 tahun, melayani imunisasi & konsultasi tumbuh kembang.')">
+<img src="https://via.placeholder.com/120"><h3>Dr. Siti Aminah</h3><p>Dokter Anak</p></div>
+<div class="doctor" data-spesialis="umum" onclick="openModal('Dr. Andi Wijaya','Dokter Umum berpengalaman menangani pasien dewasa, konsultasi kesehatan rutin.')">
+<img src="https://via.placeholder.com/120"><h3>Dr. Andi Wijaya</h3><p>Dokter Umum</p></div>
+</div>
+</div>
+</section>
+
+<!-- Articles Carousel -->
+<section id="articles">
+<div class="container">
+<h2>Artikel Terbaru</h2>
+<div class="carousel" id="articles-carousel">
+<div class="carousel-item"><h3>Pentingnya Vaksinasi</h3><p>Vaksinasi melindungi anak dan keluarga dari penyakit serius.</p></div>
+<div class="carousel-item"><h3>Cara Menjaga Gizi Seimbang</h3><p>Makanan sehat membantu menjaga daya tahan tubuh.</p></div>
+<div class="carousel-item"><h3>Cara Mengatasi Stres</h3><p>Teknik relaksasi dan pola hidup sehat untuk menurunkan stres.</p></div>
+</div>
+<div class="carousel-nav prev" onclick="scrollCarousel('articles-carousel',-1)">&#10094;</div>
+<div class="carousel-nav next" onclick="scrollCarousel('articles-carousel',1)">&#10095;</div>
+</div>
+</section>
+
+<!-- Testimonials Carousel -->
+<section id="testimonials">
+<div class="container">
+<h2>Testimoni Pasien</h2>
+<div class="carousel" id="testimonials-carousel">
+<div class="carousel-item">"Pelayanan ramah & dokter profesional!" - Ani S.</div>
+<div class="carousel-item">"RS bersih & nyaman, sangat direkomendasikan." - Budi T.</div>
+<div class="carousel-item">"Proses janji temu cepat & mudah." - Sari L.</div>
+</div>
+<div class="carousel-nav prev" onclick="scrollCarousel('testimonials-carousel',-1)">&#10094;</div>
+<div class="carousel-nav next" onclick="scrollCarousel('testimonials-carousel',1)">&#10095;</div>
+</div>
+</section>
+
+<!-- Appointment Form -->
+<section id="appointment">
+<div class="container">
+<h2>Buat Janji Temu</h2>
+<form id="appointment-form">
+<input type="text" id="name" placeholder="Nama Lengkap" required>
+<input type="tel" id="phone" placeholder="No. Telepon" required>
+<select id="doctor-select" required>
+<option value="">Pilih Dokter</option>
+<option value="Dr. Budi Santoso">Dr. Budi Santoso</option>
+<option value="Dr. Siti Aminah">Dr. Siti Aminah</option>
+<option value="Dr. Andi Wijaya">Dr. Andi Wijaya</option>
+</select>
+<input type="date" id="date" required>
+<textarea id="note" placeholder="Keluhan / Catatan"></textarea>
+<button type="submit" class="btn">Kirim via WhatsApp</button>
+</form>
+</div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+<div class="container">
+<h2>Kontak Kami</h2>
+<p>Alamat: Jl. Sehat No.1, Kota Sehat</p>
+<p>Telepon: (021) 123-4567</p>
+<p>Email: info@rssehat.com</p>
+<p>WhatsApp: <a href="https://wa.me/6283816360565">62838-1636-0565</a></p>
+</div>
+</section>
+
+<!-- Footer -->
+<footer>&copy; 2025 RS Sehat Selalu. All Rights Reserved.</footer>
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+<a href="#hero">Beranda</a>
+<a href="#services">Layanan</a>
+<a href="#doctors">Dokter</a>
+<a href="#appointment">Janji</a>
+<a href="#contact">Kontak</a>
+</div>
+
+<!-- Back to top -->
+<div id="backToTop">&#8679;</div>
+
+<!-- Modal -->
+<div id="serviceModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<h3 id="modalTitle"></h3>
+<p id="modalDesc"></p>
+</div>
+</div>
+
+<script>
+// Hero Slider
+const slides = document.querySelectorAll('.hero-slide'); let currentSlide=0;
+function showSlide(i){slides.forEach(s=>s.classList.remove('active')); slides[i].classList.add('active');}
+function nextSlide(){currentSlide=(currentSlide+1)%slides.length; showSlide(currentSlide);}
+function prevSlide(){currentSlide=(currentSlide-1+slides.length)%slides.length; showSlide(currentSlide);}
+setInterval(nextSlide,5000);
+
+// Filter Dokter
+function filterDoctors(){const value=document.getElementById('filter').value; document.querySelectorAll('#doctor-list .doctor').forEach(doc=>{doc.style.display=(value==='all'||doc.getAttribute('data-spesialis')===value)?'block':'none';});}
+
+// Carousel scroll
+function scrollCarousel(id,direction){const carousel=document.getElementById(id); carousel.scrollBy({left:direction*320,behavior:'smooth'});}
+
+// Form WhatsApp
+document.getElementById('appointment-form').addEventListener('submit',function(e){e.preventDefault();
+const name=document.getElementById('name').value;
+const phone=document.getElementById('phone').value;
+const doctor=document.getElementById('doctor-select').value;
+const date=document.getElementById('date').value;
+const note=document.getElementById('note').value;
+const message=`Halo, saya ingin membuat janji temu.%0ANama: ${name}%0ANo.Telp: ${phone}%0ADokter: ${doctor}%0ATanggal: ${date}%0AKeluhan: ${note}`;
+window.open(`https://wa.me/628123456789?text=${message}`,'_blank');});
+
+// Reveal Sections
+const sections=document.querySelectorAll('section');
+function revealSections(){const triggerBottom=window.innerHeight*0.85; sections.forEach(sec=>{if(sec.getBoundingClientRect().top<triggerBottom) sec.classList.add('visible');});}
+window.addEventListener('scroll',revealSections); revealSections();
+
+// Back to top
+const backToTop=document.getElementById('backToTop');
+window.addEventListener('scroll',()=>{if(window.scrollY>300) backToTop.style.display='block'; else backToTop.style.display='none';});
+backToTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});
+
+// Bottom nav highlight
+const navLinks=document.querySelectorAll('.bottom-nav a');
+window.addEventListener('scroll',()=>{let fromTop=window.scrollY+200; navLinks.forEach(link=>{const section=document.querySelector(link.getAttribute('href')); if(section.offsetTop<=fromTop && section.offsetTop+section.offsetHeight>fromTop){navLinks.forEach(l=>l.classList.remove('active')); link.classList.add('active');}});});
+
+// Modal functions
+function openModal(title,desc){document.getElementById('modalTitle').innerText=title; document.getElementById('modalDesc').innerText=desc; document.getElementById('serviceModal').style.display='flex';}
+function closeModal(){document.getElementById('serviceModal').style.display='none';}
+window.addEventListener('click',function(e){if(e.target==document.getElementById('serviceModal')){closeModal();}});
+</script>
+</body>
+</html>
